@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://befh6xoxevjeg"]
+
+[ext_resource type="Texture2D" uid="uid://cv6xhoo31lw1x" path="res://icon.svg" id="1_1toof"]
+[ext_resource type="Script" path="res://scenes/levels/game_manager.gd" id="1_8mgxe"]
+[ext_resource type="PackedScene" uid="uid://b8kb76cprmc" path="res://scenes/player/player.tscn" id="2_qd4ua"]
+[ext_resource type="Script" path="res://scripts/debug/debugger.gd" id="4_v76uq"]
+[ext_resource type="FontFile" uid="uid://dyrj7aadm6agr" path="res://assets/fonts/kenvector_future_thin.ttf" id="5_hylj3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pr0lq"]
+size = Vector2(130, 1280)
+
+[node name="Main" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("state_change_timer")]
+script = ExtResource("1_8mgxe")
+state_change_timer = NodePath("../StateChangeTimer")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(407, 511)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_pr0lq")
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftWall"]
+scale = Vector2(1, 10)
+texture = ExtResource("1_1toof")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(1551, 511)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_pr0lq")
+
+[node name="Sprite2D" type="Sprite2D" parent="RightWall"]
+scale = Vector2(1, 10)
+texture = ExtResource("1_1toof")
+
+[node name="Player" parent="." instance=ExtResource("2_qd4ua")]
+position = Vector2(979, 980)
+
+[node name="StateChangeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="DEBUGGER" type="Control" parent="." node_paths=PackedStringArray("state_label")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_v76uq")
+state_label = NodePath("VBoxContainer/StateLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DEBUGGER"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_right = 1908.0
+offset_bottom = 1040.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StateLabel" type="RichTextLabel" parent="DEBUGGER/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 9
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("5_hylj3")
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
+text = "[center]CURRENT_STATE[/center]"
+
+[connection signal="timeout" from="StateChangeTimer" to="GameManager" method="_on_state_change_timer_timeout"]

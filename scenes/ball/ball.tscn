@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0d26h67tkha2"]
+
+[ext_resource type="Shader" path="res://ball.gdshader" id="1_od1bf"]
+[ext_resource type="Script" path="res://scenes/ball/ball.gd" id="1_tgtxq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1k8nq"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2nihw"]
+radius = 29.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_slf3y"]
+frequency = 0.0552
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sr0l2"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_slf3y")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xxd8u"]
+shader = ExtResource("1_od1bf")
+shader_parameter/textur = SubResource("NoiseTexture2D_sr0l2")
+
+[node name="Ball" type="RigidBody2D"]
+scale = Vector2(0.6, 0.6)
+physics_material_override = SubResource("PhysicsMaterial_1k8nq")
+script = ExtResource("1_tgtxq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2nihw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xxd8u")
+texture = SubResource("NoiseTexture2D_sr0l2")
