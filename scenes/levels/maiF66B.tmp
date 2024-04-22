@@ -1,0 +1,100 @@
+[gd_scene load_steps=10 format=3 uid="uid://befh6xoxevjeg"]
+
+[ext_resource type="Texture2D" uid="uid://cv6xhoo31lw1x" path="res://icon.svg" id="1_1toof"]
+[ext_resource type="Script" path="res://scripts/managers/game_manager.gd" id="1_8mgxe"]
+[ext_resource type="Script" path="res://scripts/managers/ball_grid.gd" id="1_d4dax"]
+[ext_resource type="PackedScene" uid="uid://c8ksp6nopcc71" path="res://scenes/utilities/ball_snapper.tscn" id="2_4sqe0"]
+[ext_resource type="PackedScene" uid="uid://b8kb76cprmc" path="res://scenes/player/player.tscn" id="2_qd4ua"]
+[ext_resource type="Script" path="res://scripts/debug/debugger.gd" id="4_v76uq"]
+[ext_resource type="FontFile" uid="uid://dyrj7aadm6agr" path="res://assets/fonts/kenvector_future_thin.ttf" id="5_hylj3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pr0lq"]
+size = Vector2(130, 1280)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6q8fc"]
+rough = true
+absorbent = true
+
+[node name="Main" type="Node2D"]
+
+[node name="BallGrid" type="Node" parent="."]
+script = ExtResource("1_d4dax")
+ball_snapper_scene = ExtResource("2_4sqe0")
+
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("ball_grid")]
+script = ExtResource("1_8mgxe")
+ball_grid = NodePath("../BallGrid")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(398, 511)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_pr0lq")
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftWall"]
+scale = Vector2(1, 10)
+texture = ExtResource("1_1toof")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(1573, 511)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_pr0lq")
+
+[node name="Sprite2D" type="Sprite2D" parent="RightWall"]
+scale = Vector2(1, 10)
+texture = ExtResource("1_1toof")
+
+[node name="Ceiling" type="StaticBody2D" parent="." groups=["ceiling"]]
+position = Vector2(1025, -64)
+rotation = 1.5708
+physics_material_override = SubResource("PhysicsMaterial_6q8fc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+shape = SubResource("RectangleShape2D_pr0lq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ceiling"]
+scale = Vector2(1, 10)
+texture = ExtResource("1_1toof")
+
+[node name="Player" parent="." instance=ExtResource("2_qd4ua")]
+position = Vector2(979, 980)
+
+[node name="DEBUGGER" type="Control" parent="." node_paths=PackedStringArray("state_label")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("4_v76uq")
+state_label = NodePath("MarginContainer/VBoxContainer/StateLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="DEBUGGER"]
+layout_mode = 1
+offset_right = 1984.0
+offset_bottom = 1144.0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DEBUGGER/MarginContainer"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="StateLabel" type="RichTextLabel" parent="DEBUGGER/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("5_hylj3")
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+bbcode_enabled = true
+text = "[center]CURRENT_STATE[/center]"
+
+[node name="Control" type="Control" parent="DEBUGGER/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
