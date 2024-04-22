@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://befh6xoxevjeg"]
+[gd_scene load_steps=9 format=3 uid="uid://befh6xoxevjeg"]
 
 [ext_resource type="Texture2D" uid="uid://cv6xhoo31lw1x" path="res://icon.svg" id="1_1toof"]
-[ext_resource type="Script" path="res://scripts/managers/game_manager.gd" id="1_8mgxe"]
-[ext_resource type="Script" path="res://scripts/managers/ball_grid.gd" id="1_d4dax"]
-[ext_resource type="PackedScene" uid="uid://c8ksp6nopcc71" path="res://scenes/utilities/ball_snapper.tscn" id="2_4sqe0"]
+[ext_resource type="Script" path="res://scripts/Managers/game_manager.gd" id="1_8mgxe"]
+[ext_resource type="Script" path="res://scripts/Managers/ball_snapper.gd" id="1_d4dax"]
 [ext_resource type="PackedScene" uid="uid://b8kb76cprmc" path="res://scenes/player/player.tscn" id="2_qd4ua"]
 [ext_resource type="Script" path="res://scripts/debug/debugger.gd" id="4_v76uq"]
 [ext_resource type="FontFile" uid="uid://dyrj7aadm6agr" path="res://assets/fonts/kenvector_future_thin.ttf" id="5_hylj3"]
@@ -17,9 +16,8 @@ absorbent = true
 
 [node name="Main" type="Node2D"]
 
-[node name="BallGrid" type="Node" parent="."]
+[node name="BallSnapper" type="Node" parent="."]
 script = ExtResource("1_d4dax")
-ball_snapper = ExtResource("2_4sqe0")
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_8mgxe")
