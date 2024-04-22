@@ -6,26 +6,18 @@ static var ball_id_incrementer: int = 1
 
 @export var ball_collision_shape: CollisionShape2D
 @export var ball_sprite: Sprite2D
-
-@export var top_right: Marker2D
-@export var top_right2: Marker2D
-@export var right: Marker2D
-@export var right2: Marker2D
-@export var bottom_right: Marker2D
-@export var bottom_right2: Marker2D
-@export var bottom_left: Marker2D
-@export var bottom_left2: Marker2D
-@export var left: Marker2D
-@export var left2: Marker2D
-@export var top_left: Marker2D
-@export var top_left2: Marker2D
+@export var ball_material: Resource
+@export var ball_colour: BallColour
 
 var ball_id = 0
-
+ 
 func _ready():
+	ball_sprite.material = ball_material.duplicate()
 	self.sleeping_state_changed.emit()
 	ball_id = Ball.ball_id_incrementer
 	Ball.ball_id_incrementer += 1
+	#var colour: Plane = Plane(randf(),randf(),randf(),1.0)
+	ball_sprite.material.set_shader_parameter("colour", ball_colour.get_colour())
 
 func apply_force_on_ball(vector: Vector2):
 	apply_central_impulse(vector)
