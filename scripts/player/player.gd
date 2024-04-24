@@ -27,7 +27,6 @@ func get_input(delta):
 			var shot_direction: Vector2 = shoot_direction_marker.global_position - shoot_origin.global_position
 			current_ball.apply_force_on_ball(shot_direction.normalized() * shot_power)
 			create_ball_timer.start()
-			SignalManager.ball_shot.emit()
 		
 	turret.rotation_degrees = clamp(turret.rotation_degrees, -88, 88)
 
@@ -35,7 +34,7 @@ func create_ball(pos: Vector2) -> Ball:
 	var b: RigidBody2D = ball.instantiate()
 	add_child(b)
 	b.global_position = pos
-	b.set_colour(randi_range(0, Enums.BALL_COLOUR.size()-6))
+	b.set_colour(randi_range(0, Enums.BALL_COLOUR.size()-7))
 	return b
 
 func _on_create_ball_timer_timeout():

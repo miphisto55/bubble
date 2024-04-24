@@ -6,7 +6,6 @@ extends Node
 var screensize = Vector2.ZERO
 var tile_size = Vector2(58,58)
 
-var ball_snappers: Array[BallSnapper]
 var ball_snapper_dict: Dictionary
 
 func _ready():
@@ -19,7 +18,7 @@ func _process(delta):
 func build_ball_snapper_grid():
 	var y_offset = 29
 	var x_offset = 29
-	for k in 15:
+	for k in int(floor(screensize.x / tile_size.x)):
 		for i in int(floor(screensize.x / tile_size.x)):
 			var bs = ball_snapper_scene.instantiate()
 			add_child(bs)
@@ -30,7 +29,6 @@ func build_ball_snapper_grid():
 			else:
 				bs.global_position.x = i * tile_size.x
 				
-			bs.id = Vector2(i,k)
-			ball_snappers.append(bs)
-			ball_snapper_dict[str(bs.id)] = bs
+			bs.id = Vector2i(i,k)
+			ball_snapper_dict[bs.id] = bs
 		y_offset -= 8

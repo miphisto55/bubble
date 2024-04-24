@@ -35,7 +35,6 @@ position = Vector2(0, -135)
 rotation = -1.5708
 
 [node name="CheatLine" type="Sprite2D" parent="Turret"]
-visible = false
 position = Vector2(0, -768)
 scale = Vector2(0.1, 10)
 texture = ExtResource("5_uw5vl")
