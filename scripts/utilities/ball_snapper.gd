@@ -5,6 +5,7 @@ extends Area2D
 
 var id: Vector2 = Vector2.ZERO
 var captured_ball: bool = false
+var capture_ball_colour: Enums.BALL_COLOUR
 
 func _ready():
 	SignalManager.ball_locked.connect(_on_ball_locked)
@@ -18,5 +19,7 @@ func _on_ball_locked(ball: Ball):
 	if is_present_x and is_present_y:
 		print("Found it: " + str(id))
 		captured_ball = true
+		capture_ball_colour = ball.colour
 		ball.global_position = collision_shape.global_position
+		SignalManager.ball_snapper_caught_ball.emit(self)
 	

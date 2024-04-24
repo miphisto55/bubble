@@ -1,16 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0d26h67tkha2"]
+[gd_scene load_steps=7 format=3 uid="uid://d0d26h67tkha2"]
 
 [ext_resource type="Script" path="res://scripts/ball/ball.gd" id="1_2gpf4"]
 [ext_resource type="Material" uid="uid://c5giqlt75a5gq" path="res://assets/materials/ball_material.tres" id="2_ohavx"]
-[ext_resource type="Script" path="res://resources/ball/ball_colour.gd" id="3_xvtip"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1k8nq"]
 friction = 0.0
 bounce = 0.98
-
-[sub_resource type="Resource" id="Resource_litu0"]
-script = ExtResource("3_xvtip")
-BALL_COLOUR = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2nihw"]
 radius = 29.0
@@ -34,7 +29,6 @@ script = ExtResource("1_2gpf4")
 ball_collision_shape = NodePath("CollisionShape2D")
 ball_sprite = NodePath("Sprite2D")
 ball_material = ExtResource("2_ohavx")
-ball_colour = SubResource("Resource_litu0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2nihw")

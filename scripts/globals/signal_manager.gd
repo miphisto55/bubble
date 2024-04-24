@@ -2,6 +2,7 @@ extends Node
 
 signal ball_shot
 signal ball_locked
-signal balls_stopped
+signal all_balls_locked
+signal ball_snapper_caught_ball
 signal processing_complete
 signal game_state_changed
