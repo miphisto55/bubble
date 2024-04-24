@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0d26h67tkha2"]
+[gd_scene load_steps=7 format=3 uid="uid://d0d26h67tkha2"]
 
 [ext_resource type="Script" path="res://scripts/ball/ball.gd" id="1_2gpf4"]
-[ext_resource type="Shader" path="res://scripts/shaders/ball.gdshader" id="2_aj20p"]
+[ext_resource type="Material" uid="uid://c5giqlt75a5gq" path="res://assets/materials/ball_material.tres" id="2_ohavx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1k8nq"]
 friction = 0.0
@@ -9,19 +9,6 @@ bounce = 0.98
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2nihw"]
 radius = 29.0
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_slf3y"]
-frequency = 0.0552
-fractal_type = 3
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j7d5t"]
-width = 64
-height = 64
-noise = SubResource("FastNoiseLite_slf3y")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xxd8u"]
-shader = ExtResource("2_aj20p")
-shader_parameter/textur = SubResource("NoiseTexture2D_j7d5t")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3c4ry"]
 frequency = 0.0552
@@ -32,7 +19,7 @@ width = 64
 height = 64
 noise = SubResource("FastNoiseLite_3c4ry")
 
-[node name="Ball" type="RigidBody2D" node_paths=PackedStringArray("ball_collision_shape", "ball_sprite", "top_right", "top_right2", "right", "right2", "bottom_right", "bottom_right2", "bottom_left", "bottom_left2", "left", "left2", "top_left", "top_left2") groups=["ball"]]
+[node name="Ball" type="RigidBody2D" node_paths=PackedStringArray("ball_collision_shape", "ball_sprite") groups=["ball"]]
 physics_material_override = SubResource("PhysicsMaterial_1k8nq")
 gravity_scale = 0.0
 continuous_cd = 2
@@ -41,61 +28,13 @@ contact_monitor = true
 script = ExtResource("1_2gpf4")
 ball_collision_shape = NodePath("CollisionShape2D")
 ball_sprite = NodePath("Sprite2D")
-top_right = NodePath("TopRight")
-top_right2 = NodePath("TopRight2")
-right = NodePath("Right")
-right2 = NodePath("Right2")
-bottom_right = NodePath("BottomRight")
-bottom_right2 = NodePath("BottomRight2")
-bottom_left = NodePath("BottomLeft")
-bottom_left2 = NodePath("BottomLeft2")
-left = NodePath("Left")
-left2 = NodePath("Left2")
-top_left = NodePath("TopLeft")
-top_left2 = NodePath("TopLeft2")
+ball_material = ExtResource("2_ohavx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2nihw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_xxd8u")
 texture = SubResource("NoiseTexture2D_sr0l2")
-
-[node name="TopRight" type="Marker2D" parent="."]
-position = Vector2(15, -25)
-
-[node name="TopRight2" type="Marker2D" parent="."]
-position = Vector2(29, -51)
-
-[node name="Right" type="Marker2D" parent="."]
-position = Vector2(29, 0)
-
-[node name="Right2" type="Marker2D" parent="."]
-position = Vector2(58, 0)
-
-[node name="BottomRight" type="Marker2D" parent="."]
-position = Vector2(15, 25)
-
-[node name="BottomRight2" type="Marker2D" parent="."]
-position = Vector2(29, 50)
-
-[node name="BottomLeft" type="Marker2D" parent="."]
-position = Vector2(-15, 25)
-
-[node name="BottomLeft2" type="Marker2D" parent="."]
-position = Vector2(-29, 50)
-
-[node name="Left" type="Marker2D" parent="."]
-position = Vector2(-29, 0)
-
-[node name="Left2" type="Marker2D" parent="."]
-position = Vector2(-58, 0)
-
-[node name="TopLeft" type="Marker2D" parent="."]
-position = Vector2(-15, -25)
-
-[node name="TopLeft2" type="Marker2D" parent="."]
-position = Vector2(-29, -50)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
