@@ -1,21 +1,113 @@
-[gd_scene load_steps=10 format=3 uid="uid://befh6xoxevjeg"]
+[gd_scene load_steps=30 format=3 uid="uid://befh6xoxevjeg"]
 
 [ext_resource type="Texture2D" uid="uid://cv6xhoo31lw1x" path="res://icon.svg" id="1_1toof"]
 [ext_resource type="Script" path="res://scripts/managers/game_manager.gd" id="1_8mgxe"]
 [ext_resource type="Script" path="res://scripts/managers/ball_grid.gd" id="1_d4dax"]
+[ext_resource type="Texture2D" uid="uid://cxl3hyn72ifn8" path="res://assets/beach_background_trading_card2.png" id="1_d82hy"]
 [ext_resource type="PackedScene" uid="uid://c8ksp6nopcc71" path="res://scenes/utilities/ball_snapper.tscn" id="2_4sqe0"]
 [ext_resource type="PackedScene" uid="uid://b8kb76cprmc" path="res://scenes/player/player.tscn" id="2_qd4ua"]
 [ext_resource type="Script" path="res://scripts/debug/debugger.gd" id="4_v76uq"]
 [ext_resource type="FontFile" uid="uid://dyrj7aadm6agr" path="res://assets/fonts/kenvector_future_thin.ttf" id="5_hylj3"]
+[ext_resource type="Texture2D" uid="uid://1fcloacli8x0" path="res://assets/frame_02.png" id="6_4vi26"]
+[ext_resource type="Texture2D" uid="uid://df3wi2k8uv5es" path="res://assets/white_particle.png" id="9_ufqwl"]
+[ext_resource type="Shader" path="res://scenes/levels/god_rays.gdshader" id="10_mgx3r"]
+[ext_resource type="Script" path="res://scenes/levels/god_Rays.gd" id="11_bv00x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujbf1"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pr0lq"]
 size = Vector2(130, 1280)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7tpf4"]
+texture = ExtResource("6_4vi26")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6q8fc"]
 rough = true
 absorbent = true
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fvuog"]
+polygon = PackedVector2Array(21, 2, 34, -8, 60, -8, 77, 8, 88, 11, 105, 34, 115, 67, 133, 78, 160, 100, 177, 117, 198, 136, 270, 161, 349, 191, 401, 210, 418, 211, 449, 201, 472, 204, 522, 219, 550, 234, 562, 245, 231, 247, -105, 247, -104, 64, -91, 62, -69, 62, -59, 47, -37, 37, -8, 18, 0, -4)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_w2wjq"]
+polygon = PackedVector2Array(939, 197, 914, 189, 874, 181, 850, 186, 831, 233, 813, 273, 839, 264, 810, 283, 742, 288, 681, 292, 621, 310, 546, 332, 504, 347, 497, 358, 663, 362, 805, 361, 942, 364)
+
+[sub_resource type="Gradient" id="Gradient_jsckn"]
+offsets = PackedFloat32Array(0, 0.107407, 0.181481, 0.266667, 0.477778, 0.67037, 0.796296)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3f3ph"]
+gradient = SubResource("Gradient_jsckn")
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_0ypfd"]
+
+[sub_resource type="Curve" id="Curve_8mbie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00743246), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_g805t"]
+curve = SubResource("Curve_8mbie")
+
+[sub_resource type="Curve" id="Curve_s7djb"]
+max_value = 3.0
+_data = [Vector2(0.0100671, 1.73514), 0.0, 0.0, 0, 0, Vector2(0.989933, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pum61"]
+curve = SubResource("Curve_s7djb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mkm8i"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(515, 500, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 24.54
+initial_velocity_max = 55.21
+directional_velocity_min = 0.0
+directional_velocity_max = 0.0
+directional_velocity_curve = SubResource("CurveXYZTexture_0ypfd")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.02
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_g805t")
+scale_over_velocity_min = 214.72
+scale_over_velocity_max = 294.48
+scale_over_velocity_curve = SubResource("CurveTexture_pum61")
+color_ramp = SubResource("GradientTexture1D_3f3ph")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cw7dg"]
+shader = ExtResource("10_mgx3r")
+shader_parameter/angle = 0.81
+shader_parameter/position = 0.31
+shader_parameter/spread = 0.161
+shader_parameter/cutoff = 0.031
+shader_parameter/falloff = 0.577
+shader_parameter/edge_fade = 0.502
+shader_parameter/speed = 1.0
+shader_parameter/elapsed = 1.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Color(1, 0.9, 0.65, 0.8)
+shader_parameter/hdr = true
+shader_parameter/seed = 6.945
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_idlun"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_twchg"]
+width = 1920
+height = 1080
+noise = SubResource("FastNoiseLite_idlun")
+
 [node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(955, 298)
+texture = ExtResource("1_d82hy")
 
 [node name="BallGrid" type="Node" parent="."]
 script = ExtResource("1_d4dax")
@@ -25,25 +117,70 @@ ball_snapper_scene = ExtResource("2_4sqe0")
 script = ExtResource("1_8mgxe")
 ball_grid = NodePath("../BallGrid")
 
+[node name="Covering" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+offset_right = 1920.0
+offset_bottom = 1080.0
+
 [node name="LeftWall" type="StaticBody2D" parent="."]
-position = Vector2(398, 511)
+
+[node name="LeftCover" type="Panel" parent="LeftWall"]
+modulate = Color(1, 1, 1, 0.392157)
+offset_right = 340.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ujbf1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(398, 511)
 shape = SubResource("RectangleShape2D_pr0lq")
 
-[node name="Sprite2D" type="Sprite2D" parent="LeftWall"]
-scale = Vector2(1, 10)
-texture = ExtResource("1_1toof")
+[node name="PanelContainer" type="PanelContainer" parent="LeftWall/CollisionShape2D"]
+custom_minimum_size = Vector2(130, 1280)
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_right = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_7tpf4")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
 position = Vector2(1573, 511)
 
+[node name="RightCover" type="Panel" parent="RightWall"]
+modulate = Color(1, 1, 1, 0.392157)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = -511.0
+offset_right = 349.0
+offset_bottom = 569.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ujbf1")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
 shape = SubResource("RectangleShape2D_pr0lq")
 
-[node name="Sprite2D" type="Sprite2D" parent="RightWall"]
-scale = Vector2(1, 10)
-texture = ExtResource("1_1toof")
+[node name="PanelContainer2" type="PanelContainer" parent="RightWall/CollisionShape2D"]
+custom_minimum_size = Vector2(130, 1280)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -640.0
+offset_right = 65.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_7tpf4")
 
 [node name="Ceiling" type="StaticBody2D" parent="." groups=["ceiling"]]
 position = Vector2(1025, -64)
@@ -85,7 +222,7 @@ size_flags_horizontal = 8
 [node name="StateLabel" type="RichTextLabel" parent="DEBUGGER/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 4
 theme_override_fonts/normal_font = ExtResource("5_hylj3")
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
@@ -98,3 +235,38 @@ text = "[center]CURRENT_STATE[/center]"
 [node name="Control" type="Control" parent="DEBUGGER/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.996078, 0.796078, 0.713726, 1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(0, 473)
+rotation = 0.418879
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0431373)
+max_distance = 300.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(567, 563)
+occluder = SubResource("OccluderPolygon2D_fvuog")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+position = Vector2(567, 563)
+occluder = SubResource("OccluderPolygon2D_w2wjq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(987, 682)
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_mkm8i")
+texture = ExtResource("9_ufqwl")
+lifetime = 5.0
+preprocess = 10.0
+
+[node name="GodRays" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_cw7dg")
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("NoiseTexture2D_twchg")
+script = ExtResource("11_bv00x")

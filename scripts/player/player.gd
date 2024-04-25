@@ -34,7 +34,7 @@ func create_ball(pos: Vector2) -> Ball:
 	var b: RigidBody2D = ball.instantiate()
 	add_child(b)
 	b.global_position = pos
-	b.set_colour(randi_range(0, Enums.BALL_COLOUR.size()-7))
+	b.set_colour(randi_range(0, Enums.BALL_COLOUR.size()-8))
 	return b
 
 func _on_create_ball_timer_timeout():

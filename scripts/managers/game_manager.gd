@@ -6,6 +6,7 @@ extends Node
 var current_ball_colour: Enums.BALL_COLOUR = Enums.BALL_COLOUR.DEEP_BLUE
 var current_ball_snapper: BallSnapper = null
 
+var arr_visited_nodes: Array
 var visited_nodes: Array[Vector2i]
 
 func _ready():
@@ -20,7 +21,7 @@ func _process(delta):
 func determine_ball_matches():
 	if current_ball_snapper == null:
 		return
-	
+
 	visited_nodes.clear()
 	var ball_snapper: BallSnapper = current_ball_snapper
 	print("Current snapper: " + str(ball_snapper.id) + " its ball colour: " + str(Enums.BALL_COLOUR.keys()[ball_snapper.capture_ball_colour]))
@@ -31,7 +32,7 @@ func determine_ball_matches():
 		print ("Found: " + str(visited_nodes))
 		SignalManager.clear_matching_balls.emit(visited_nodes)
 
-func search_for_matches(root_pos: Vector2i):
+func search_for_matches(root_pos: Vector2i):		
 	var topleft = root_pos - Vector2i(1,1)
 	var left = root_pos - Vector2i(1,0)
 	var bottomleft = root_pos - Vector2i(1,-1)
@@ -39,16 +40,16 @@ func search_for_matches(root_pos: Vector2i):
 	var right = root_pos - Vector2i(-1,0)
 	var topright = root_pos - Vector2i(0,1)
 	
-	var positions_to_check: Array[Vector2i]
-	positions_to_check.append(topleft)
-	positions_to_check.append(left)
-	positions_to_check.append(bottomleft)
-	positions_to_check.append(bottomright)
-	positions_to_check.append(right)
-	positions_to_check.append(topright)
+	var adjacent_snappers: Array[Vector2i]
+	adjacent_snappers.append(topleft)
+	adjacent_snappers.append(left)
+	adjacent_snappers.append(bottomleft)
+	adjacent_snappers.append(bottomright)
+	adjacent_snappers.append(right)
+	adjacent_snappers.append(topright)
 	
-	for pos_vector in positions_to_check:
-		check_if_searchable(pos_vector)
+	for pos in adjacent_snappers:
+		check_if_searchable(pos)
 
 func check_if_searchable(pos: Vector2i):
 	var snapper_exists = ball_grid.ball_snapper_dict.has(pos)
