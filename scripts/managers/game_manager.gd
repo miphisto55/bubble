@@ -21,6 +21,7 @@ func _process(delta):
 func determine_ball_matches():
 	if current_ball_snapper == null:
 		return
+
 	visited_nodes.clear()
 	var ball_snapper: BallSnapper = current_ball_snapper
 	print("Current snapper: " + str(ball_snapper.id) + " its ball colour: " + str(Enums.BALL_COLOUR.keys()[ball_snapper.capture_ball_colour]))
