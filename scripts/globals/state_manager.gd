@@ -11,7 +11,7 @@ func change_state_to_shooting():
 	current_state = Enums.STATE.SHOOTING
 	SignalManager.game_state_changed.emit(Enums.STATE.SHOOTING)
 
-func change_state_to_processing(ball):
+func change_state_to_processing(_ball):
 	current_state = Enums.STATE.PROCESSING
 	SignalManager.game_state_changed.emit(Enums.STATE.PROCESSING)
 	
