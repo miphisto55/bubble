@@ -5,7 +5,7 @@ extends Area2D
 
 var id: Vector2i = Vector2.ZERO
 var captured_ball: Ball = null
-var capture_ball_colour: Enums.BALL_COLOUR = -1
+var capture_ball_colour: Enums.BALL_COLOUR = Enums.BALL_COLOUR.UNDEFINED
 
 func _ready():
 	SignalManager.ball_locked.connect(_on_ball_locked)
@@ -14,7 +14,7 @@ func _ready():
 func _on_clear_matching_balls(visited_nodes: Array[Vector2i]):
 	if visited_nodes.has(id):
 		captured_ball.queue_free()
-		capture_ball_colour = -1
+		capture_ball_colour = Enums.BALL_COLOUR.UNDEFINED
 
 func _on_ball_locked(ball: Ball):
 	var snapper_center: Vector2 = collision_shape.global_position

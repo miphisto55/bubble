@@ -12,7 +12,7 @@ func _ready():
 	screensize = get_parent().get_viewport_rect().size
 	build_ball_snapper_grid()
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func build_ball_snapper_grid():

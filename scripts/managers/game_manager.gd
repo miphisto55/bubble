@@ -13,7 +13,7 @@ func _ready():
 	SignalManager.ball_locked.connect(_on_ball_locked)
 	SignalManager.ball_snapper_caught_ball.connect(_on_ball_snapper_caught_ball)
 	
-func _process(delta):
+func _process(_delta):
 	if StateManager.current_state == Enums.STATE.PROCESSING:
 		determine_ball_matches()
 		SignalManager.processing_complete.emit()
@@ -32,7 +32,7 @@ func determine_ball_matches():
 		print ("Found: " + str(visited_nodes))
 		SignalManager.clear_matching_balls.emit(visited_nodes)
 
-func search_for_matches(root_pos: Vector2i):		
+func search_for_matches(root_pos: Vector2i):
 	var topleft = root_pos - Vector2i(1,1)
 	var left = root_pos - Vector2i(1,0)
 	var bottomleft = root_pos - Vector2i(1,-1)
@@ -40,7 +40,7 @@ func search_for_matches(root_pos: Vector2i):
 	var right = root_pos - Vector2i(-1,0)
 	var topright = root_pos - Vector2i(0,1)
 	
-	var adjacent_snappers: Array[Vector2i]
+	var adjacent_snappers: Array[Vector2i] = []
 	adjacent_snappers.append(topleft)
 	adjacent_snappers.append(left)
 	adjacent_snappers.append(bottomleft)
