@@ -1,17 +1,17 @@
-[gd_scene load_steps=30 format=3 uid="uid://befh6xoxevjeg"]
+[gd_scene load_steps=29 format=3 uid="uid://befh6xoxevjeg"]
 
 [ext_resource type="Texture2D" uid="uid://cv6xhoo31lw1x" path="res://icon.svg" id="1_1toof"]
 [ext_resource type="Script" path="res://scripts/managers/game_manager.gd" id="1_8mgxe"]
+[ext_resource type="Texture2D" uid="uid://c20xbmsafjo80" path="res://assets/tree_background.png" id="1_aeywy"]
 [ext_resource type="Script" path="res://scripts/managers/ball_grid.gd" id="1_d4dax"]
-[ext_resource type="Texture2D" uid="uid://cxl3hyn72ifn8" path="res://assets/beach_background_trading_card2.png" id="1_d82hy"]
 [ext_resource type="PackedScene" uid="uid://c8ksp6nopcc71" path="res://scenes/utilities/ball_snapper.tscn" id="2_4sqe0"]
 [ext_resource type="PackedScene" uid="uid://b8kb76cprmc" path="res://scenes/player/player.tscn" id="2_qd4ua"]
 [ext_resource type="Script" path="res://scripts/debug/debugger.gd" id="4_v76uq"]
 [ext_resource type="FontFile" uid="uid://dyrj7aadm6agr" path="res://assets/fonts/kenvector_future_thin.ttf" id="5_hylj3"]
 [ext_resource type="Texture2D" uid="uid://1fcloacli8x0" path="res://assets/frame_02.png" id="6_4vi26"]
 [ext_resource type="Texture2D" uid="uid://df3wi2k8uv5es" path="res://assets/white_particle.png" id="9_ufqwl"]
-[ext_resource type="Shader" path="res://scenes/levels/god_rays.gdshader" id="10_mgx3r"]
-[ext_resource type="Script" path="res://scenes/levels/god_Rays.gd" id="11_bv00x"]
+[ext_resource type="Shader" path="res://scripts/shaders/god_rays.gdshader" id="10_mgx3r"]
+[ext_resource type="Script" path="res://scripts/utilities/god_Rays.gd" id="11_bv00x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujbf1"]
 bg_color = Color(0, 0, 0, 1)
@@ -30,11 +30,12 @@ texture_margin_bottom = 12.0
 rough = true
 absorbent = true
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fvuog"]
-polygon = PackedVector2Array(21, 2, 34, -8, 60, -8, 77, 8, 88, 11, 105, 34, 115, 67, 133, 78, 160, 100, 177, 117, 198, 136, 270, 161, 349, 191, 401, 210, 418, 211, 449, 201, 472, 204, 522, 219, 550, 234, 562, 245, 231, 247, -105, 247, -104, 64, -91, 62, -69, 62, -59, 47, -37, 37, -8, 18, 0, -4)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_w2wjq"]
-polygon = PackedVector2Array(939, 197, 914, 189, 874, 181, 850, 186, 831, 233, 813, 273, 839, 264, 810, 283, 742, 288, 681, 292, 621, 310, 546, 332, 504, 347, 497, 358, 663, 362, 805, 361, 942, 364)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_imh6s"]
+texture = ExtResource("6_4vi26")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
 
 [sub_resource type="Gradient" id="Gradient_jsckn"]
 offsets = PackedFloat32Array(0, 0.107407, 0.181481, 0.266667, 0.477778, 0.67037, 0.796296)
@@ -106,8 +107,9 @@ noise = SubResource("FastNoiseLite_idlun")
 [node name="Main" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(955, 298)
-texture = ExtResource("1_d82hy")
+position = Vector2(949, 336)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_aeywy")
 
 [node name="BallGrid" type="Node" parent="."]
 script = ExtResource("1_d4dax")
@@ -203,7 +205,7 @@ anchors_preset = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("4_v76uq")
-state_label = NodePath("MarginContainer/VBoxContainer/StateLabel")
+state_label = NodePath("MarginContainer/VBoxContainer/PanelContainer/StateLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="DEBUGGER"]
 layout_mode = 1
@@ -217,18 +219,23 @@ theme_override_constants/margin_bottom = 32
 [node name="VBoxContainer" type="VBoxContainer" parent="DEBUGGER/MarginContainer"]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
-size_flags_horizontal = 8
 
-[node name="StateLabel" type="RichTextLabel" parent="DEBUGGER/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 65)
+[node name="PanelContainer" type="PanelContainer" parent="DEBUGGER/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_imh6s")
+
+[node name="StateLabel" type="RichTextLabel" parent="DEBUGGER/MarginContainer/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(260, 65)
+layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_fonts/normal_font = ExtResource("5_hylj3")
-theme_override_font_sizes/normal_font_size = 64
-theme_override_font_sizes/bold_font_size = 64
-theme_override_font_sizes/italics_font_size = 64
-theme_override_font_sizes/bold_italics_font_size = 64
-theme_override_font_sizes/mono_font_size = 64
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
 bbcode_enabled = true
 text = "[center]CURRENT_STATE[/center]"
 
@@ -236,23 +243,11 @@ text = "[center]CURRENT_STATE[/center]"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.996078, 0.796078, 0.713726, 1)
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 position = Vector2(0, 473)
-rotation = 0.418879
+rotation = 0.47473
 shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.0431373)
 max_distance = 300.0
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-position = Vector2(567, 563)
-occluder = SubResource("OccluderPolygon2D_fvuog")
-
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
-position = Vector2(567, 563)
-occluder = SubResource("OccluderPolygon2D_w2wjq")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
