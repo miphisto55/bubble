@@ -21,3 +21,10 @@ enum BALL_COLOUR {
 	RED,
 	UNDEFINED = -1
 }
+
+enum LEVEL {
+	ZERO,
+	ONE,
+	TWO,
+	THREE
+}

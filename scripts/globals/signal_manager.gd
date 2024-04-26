@@ -1,5 +1,6 @@
 extends Node
 
+signal ball_snapper_grid_complete
 signal ball_shot
 signal ball_locked
 signal ball_snapper_caught_ball

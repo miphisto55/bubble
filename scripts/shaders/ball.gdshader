@@ -25,6 +25,6 @@ void fragment() {
 	float circle_width = 0.45;
 	float circle = ball(circle_width, UV);
 	circle = circle < 0.45 ? 1.0 : 0.0;
-	vec4 color = vec4(colour.r, colour.g,colour.b, 1.0) * texture_color * circle;
+	vec4 color = vec4(colour.r, colour.g,colour.b, colour.w) * texture_color * circle;
 	COLOR = color;
 }

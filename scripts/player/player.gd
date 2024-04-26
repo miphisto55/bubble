@@ -7,7 +7,7 @@ extends Node2D
 @export var create_ball_timer: Timer
 
 @export var rotation_speed: float
-@export var shot_power: int = 700
+@export var shot_power: int = 1200
 
 var current_ball: Ball
 
@@ -28,7 +28,7 @@ func get_input(delta):
 			current_ball.apply_force_on_ball(shot_direction.normalized() * shot_power)
 			create_ball_timer.start()
 		
-	turret.rotation_degrees = clamp(turret.rotation_degrees, -88, 88)
+	turret.rotation_degrees = clamp(turret.rotation_degrees, -80, 80)
 
 func create_ball(pos: Vector2) -> Ball:
 	var b: RigidBody2D = ball.instantiate()

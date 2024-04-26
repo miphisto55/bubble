@@ -111,9 +111,10 @@ position = Vector2(949, 336)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("1_aeywy")
 
-[node name="BallGrid" type="Node" parent="."]
+[node name="BallGrid" type="Node" parent="." node_paths=PackedStringArray("left_wall_collision_shape")]
 script = ExtResource("1_d4dax")
 ball_snapper_scene = ExtResource("2_4sqe0")
+left_wall_collision_shape = NodePath("../LeftWall/CollisionShape2D")
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("ball_grid")]
 script = ExtResource("1_8mgxe")

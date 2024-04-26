@@ -2,6 +2,7 @@ class_name GameManager
 extends Node
 
 @export var ball_grid: BallGrid
+@export var current_level: Resource
 
 var current_ball_colour: Enums.BALL_COLOUR = Enums.BALL_COLOUR.DEEP_BLUE
 var current_ball_snapper: BallSnapper = null
